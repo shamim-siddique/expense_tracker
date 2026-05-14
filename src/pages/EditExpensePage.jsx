@@ -1,10 +1,10 @@
-import { useOutletContext, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { ExpenseForm } from '../components/expenses/ExpenseForm'
+import useExpenseTrackerStore from '../store/expenseTracker'
 
 const EditExpensePage = () => {
 
-  const { expenses, updateExpense } =
-    useOutletContext()
+ const {expenses,updateExpense} = useExpenseTrackerStore()
 
   const { id } = useParams()
 

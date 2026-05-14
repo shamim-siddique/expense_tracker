@@ -26,13 +26,6 @@ const Navbar = () => {
               <PlusCircle className="w-4 h-4" />
               <span className="hidden sm:inline">Add Expense</span>
             </Link>
-            <Link
-              to="/budget"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 transition-colors text-sm font-medium"
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              <span className="hidden sm:inline">Budget</span>
-            </Link>
           </div>
         </div>
       </div>

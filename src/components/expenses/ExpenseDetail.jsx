@@ -1,8 +1,21 @@
 import React from 'react'
 import { Calendar, Tag, DollarSign, FileText, Repeat, ArrowLeft } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import useExpenseTrackerStore from '../../store/expenseTracker';
 
-const ExpenseDetail = ({ expense }) => {
+const ExpenseDetail = () => {
+  const {id} = useParams();
+  const {expenses} = useExpenseTrackerStore();
+  const expense = expenses.find((expense) => expense.id === Number(id));
+
+  if(!expense){
+    return (
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center max-w-2xl mx-auto">
+        <h1 className="text-xl font-bold text-gray-900 mb-2">Expense Not Found</h1>
+        <p className="text-gray-500 text-sm">The expense you are looking for does not exist.</p>
+      </div>
+    )
+  }
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
       <Link

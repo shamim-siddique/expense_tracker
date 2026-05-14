@@ -2,19 +2,21 @@ import { useNavigate } from 'react-router-dom';
 import { useExpenseForm } from '../../hooks/useExpenseForm';
 import { expenseSchema } from '../../schemas/expenseSchema';
 import { DollarSign, Tag, Calendar, FileText, Repeat, ArrowLeft, Save } from 'lucide-react';
+import useExpenseTrackerStore from '../../store/expenseTracker';
 
-export const ExpenseForm = ({onsubmit,Id,update,defaultValues}) => {
-    const navigate =useNavigate()
-    const { register, handleSubmit, formState: { errors } } = useExpenseForm(
+export const ExpenseForm = ({ Id, update, defaultValues }) => {
+    const { addExpense } = useExpenseTrackerStore()
+    const navigate = useNavigate()
+    const { register, handleSubmit,control, formState: { errors } } = useExpenseForm(
         expenseSchema,
         defaultValues
     )
 
-    const handleData = (data)=>{
-        if(Id){
-            update(Number(Id),data)
-        }else{
-            onsubmit(data)
+    const handleData = (data) => {
+        if (Id) {
+            update(Number(Id), data)
+        } else {
+            addExpense(data)
         }
         navigate("/expenses")
     }
@@ -56,7 +58,7 @@ export const ExpenseForm = ({onsubmit,Id,update,defaultValues}) => {
                         type="text"
                         placeholder='e.g. Food, Travel, Shopping'
                         className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                        {...register("category", {required:true})}
+                        {...register("category", { required: true })}
                     />
                     {errors.category && <p className="text-xs text-rose-500 mt-1.5">{errors.category.message}</p>}
                 </div>
@@ -69,7 +71,7 @@ export const ExpenseForm = ({onsubmit,Id,update,defaultValues}) => {
                     <input
                         type="date"
                         className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                        {...register("date", {required:true})}
+                        {...register("date", { required: true })}
                     />
                     {errors.date && <p className="text-xs text-rose-500 mt-1.5">{errors.date.message}</p>}
                 </div>
@@ -84,6 +86,19 @@ export const ExpenseForm = ({onsubmit,Id,update,defaultValues}) => {
                         placeholder='Optional note'
                         className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                         {...register("note")}
+                    />
+                </div>
+
+                <div>
+                    <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
+                        <FileText className="w-4 h-4 text-indigo-500" />
+                        Tags
+                    </label>
+                    <input
+                        type="text"
+                        placeholder='Optional note'
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                        {...register("tags")}
                     />
                 </div>
 

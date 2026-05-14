@@ -14,7 +14,9 @@ const ExpenseCard = ({ expense, onDelete }) => {
             <h3 className="font-bold text-gray-900">{expense.category}</h3>
             <div className="flex items-center gap-1 text-xs text-gray-400 mt-0.5">
               <Calendar className="w-3 h-3" />
-              <span>{expense.date instanceof Date ? expense.date.toLocaleDateString() : expense.date}</span>
+              <span>
+                {new Date(expense.date).toLocaleDateString()}
+              </span>
             </div>
           </div>
         </div>
@@ -51,6 +53,16 @@ const ExpenseCard = ({ expense, onDelete }) => {
           <Pencil className="w-4 h-4" />
           Edit
         </Link>
+        {expense.tags && expense.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {expense.tags.map((tag, index) => (
+              <span key={index} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-amber-600 bg-amber-50 rounded-lg hover:bg-amber-100 transition-colors"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
         <button
           onClick={() => onDelete(expense.id)}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-rose-600 bg-rose-50 rounded-lg hover:bg-rose-100 transition-colors ml-auto"

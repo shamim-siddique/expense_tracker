@@ -1,11 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import ExpensePage from "../pages/ExpensePage";
-import ExpenseDetailsPage from "../pages/ExpenseDetailsPage";
-import BudgetsPage from "../pages/BudgetsPage";
 import App from "../App";
-import CreateExpensePage from "../pages/CreateExpensePage";
 import EditExpensePage from "../pages/EditExpensePage";
 import HomePage from "../pages/HomePage";
+import { ExpenseForm } from "../components/expenses/ExpenseForm";
+import ExpenseDetail from "../components/expenses/ExpenseDetail";
 
 export const router = createBrowserRouter([
     {
@@ -22,7 +21,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/expenses/new",
-                element:<CreateExpensePage/>
+                element:<ExpenseForm/>
             },
               {
                 path:"/expenses/edit/:id",
@@ -30,12 +29,8 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/expenses/:id",
-                element: <ExpenseDetailsPage />
+                element: <ExpenseDetail />
             },
-            {
-                path: "/budget",
-                element: <BudgetsPage />
-            }
         ]
     }
 ])

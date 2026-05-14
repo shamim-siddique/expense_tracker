@@ -1,4 +1,4 @@
-import {z} from 'zod';
+import { z } from 'zod';
 
 export const expenseSchema = z.object({
     amount: z.number().positive().min(1, 'Amount must be greater than 0'),
@@ -6,4 +6,5 @@ export const expenseSchema = z.object({
     date: z.coerce.date(),
     note: z.string().optional(),
     recurring: z.boolean().optional(),
+    tags: z.string().optional().transform((val) => val ? val.split(',').map(tag => tag.trim()) : [])
 });
